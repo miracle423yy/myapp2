@@ -1,0 +1,41 @@
+{
+    "paths": [
+        {
+            "name": "/food",
+            "lambdaFunction": "foodfunction",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            }
+        }
+    ],
+    "resourceName": "foodapi",
+    "apiName": "foodapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "foodfunction"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "myapp2-dev-20191004150908-authRole",
+        "unAuthRoleName": "myapp2-dev-20191004150908-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "foodfunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

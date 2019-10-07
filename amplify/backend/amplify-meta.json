@@ -1,0 +1,134 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "myapp2-dev-20191004150908-authRole",
+			"UnauthRoleArn": "arn:aws:iam::607418097293:role/myapp2-dev-20191004150908-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::607418097293:role/myapp2-dev-20191004150908-authRole",
+			"Region": "us-west-2",
+			"DeploymentBucketName": "myapp2-dev-20191004150908-deployment",
+			"UnauthRoleName": "myapp2-dev-20191004150908-unauthRole",
+			"StackName": "myapp2-dev-20191004150908",
+			"StackId": "arn:aws:cloudformation:us-west-2:607418097293:stack/myapp2-dev-20191004150908/96413cd0-e6f3-11e9-aedf-02bdb80754dc"
+		}
+	},
+	"storage": {
+		"foodTable": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp2-dev-20191004150908-deployment/amplify-cfn-templates/storage/foodTable-cloudformation-template.json",
+				"logicalId": "storagefoodTable"
+			},
+			"lastPushTimeStamp": "2019-10-07T21:40:22.832Z",
+			"output": {
+				"PartitionKeyName": "Name",
+				"Region": "us-west-2",
+				"Arn": "arn:aws:dynamodb:us-west-2:607418097293:table/foodTable-dev",
+				"StreamArn": "arn:aws:dynamodb:us-west-2:607418097293:table/foodTable-dev/stream/2019-10-04T22:15:29.591",
+				"PartitionKeyType": "S",
+				"Name": "foodTable-dev"
+			},
+			"lastPushDirHash": "LsvIrSP0/UV3HsE/CFCvDmkMCTw="
+		}
+	},
+	"function": {
+		"foodfunction": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "foodTable",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"lastBuildTimeStamp": "2019-10-04T22:12:27.607Z",
+			"lastPackageTimeStamp": "2019-10-04T22:22:58.827Z",
+			"distZipFilename": "foodfunction-6e3559644f2b444f6277-build.zip",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp2-dev-20191004150908-deployment/amplify-cfn-templates/function/foodfunction-cloudformation-template.json",
+				"logicalId": "functionfoodfunction"
+			},
+			"lastPushTimeStamp": "2019-10-07T21:40:22.833Z",
+			"output": {
+				"Region": "us-west-2",
+				"Arn": "arn:aws:lambda:us-west-2:607418097293:function:foodfunction-dev",
+				"Name": "foodfunction-dev",
+				"LambdaExecutionRole": "myapp2LambdaRolefeaac8af-dev"
+			},
+			"lastPushDirHash": "o/a0ksQDtagY8aOJCN3Tob4O4s0="
+		}
+	},
+	"auth": {
+		"cognito3ab6cb65": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp2-dev-20191004150908-deployment/amplify-cfn-templates/auth/cognito3ab6cb65-cloudformation-template.yml",
+				"logicalId": "authcognito3ab6cb65"
+			},
+			"lastPushTimeStamp": "2019-10-07T21:40:22.835Z",
+			"output": {
+				"AppClientSecret": "1odf5r5m2nehpe5uj6g3uaqu4i0qek8jmj681isc1u83rifffrsp",
+				"UserPoolId": "us-west-2_NIDBwzzVx",
+				"AppClientIDWeb": "6fo1k2ktoomqf5b2d5i1k8mrem",
+				"AppClientID": "5d8vf44lnujooj2lah95222v4u",
+				"IdentityPoolId": "us-west-2:ac7ec996-e1e5-47d5-8843-083a904ce01e",
+				"IdentityPoolName": "myapp2_identitypool_afd391c5__dev",
+				"UserPoolName": "myapp2_userpool_afd391c5"
+			},
+			"lastPushDirHash": "RBHb20QFIf8riShZB4YcV6NTr6Q="
+		}
+	},
+	"api": {
+		"foodapi": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "foodfunction",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp2-dev-20191004150908-deployment/amplify-cfn-templates/api/foodapi-cloudformation-template.json",
+				"logicalId": "apifoodapi"
+			},
+			"lastPushTimeStamp": "2019-10-07T21:40:22.835Z",
+			"output": {
+				"ApiName": "foodapi",
+				"RootUrl": "https://430aio1ql3.execute-api.us-west-2.amazonaws.com/dev"
+			},
+			"lastPushDirHash": "Qxwe4Im88U2e5Fyy0shkqAinVmE="
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp2-dev-20191004150908-deployment/amplify-cfn-templates/hosting/template.json",
+				"logicalId": "hostingS3AndCloudFront"
+			},
+			"lastPushTimeStamp": "2019-10-07T21:40:22.838Z",
+			"output": {
+				"CloudFrontSecureURL": "https://d2oa9pglcranyv.cloudfront.net",
+				"S3BucketSecureURL": "https://myapp2-20191007140352-hostingbucket-dev.s3.amazonaws.com",
+				"WebsiteURL": "http://myapp2-20191007140352-hostingbucket-dev.s3-website-us-west-2.amazonaws.com",
+				"CloudFrontDistributionID": "EA2YVBQDP0BMP",
+				"Region": "us-west-2",
+				"HostingBucketName": "myapp2-20191007140352-hostingbucket-dev",
+				"CloudFrontDomainName": "d2oa9pglcranyv.cloudfront.net"
+			},
+			"lastPushDirHash": "kH07rvXQFkHfSimVtlVOtnYuDGE="
+		}
+	}
+}

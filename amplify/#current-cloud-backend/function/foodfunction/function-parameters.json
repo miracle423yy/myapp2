@@ -1,0 +1,12 @@
+{
+    "permissions": {
+        "storage": {
+            "foodTable": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}
